@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Actions for Incidents</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #response {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Manage Incidents</h1>
+
+    <!-- Create Incident Form -->
+    <form action="/incidents" method="POST">
+        <h3>Create Incident</h3>
+        Title: <input type="text" name="title" required><br>
+        Description: <input type="text" name="description" required><br>
+        Severity: <input type="text" name="severity" required><br>
+        <button type="submit">Create Incident</button>
+    </form>
+
+    <!-- Get All Incidents Form -->
+    <form action="/incidents" method="GET">
+        <h3>Get All Incidents</h3>
+        <button type="submit">Get All Incidents</button>
+    </form>
+
+    <!-- Get Incident by ID Form -->
+    <form id="incident-form">
+        <h3>Get Incident by ID</h3>
+        ID: <input type="number" name="id" id="incident-id" required><br>
+        <button type="submit">Get Incident</button>
+    </form>
+    
+    <script>
+        document.getElementById("incident-form").addEventListener("submit", function(event) {
+            event.preventDefault();  // Prevent form from submitting the traditional way
+    
+            // Get the ID entered by the user
+            var incidentId = document.getElementById("incident-id").value;
+    
+            // Redirect to the route with the ID as part of the URL
+            window.location.href = `/incidents/${incidentId}`;
+        });
+    </script>
+
+    <!-- Update Incident Form -->
+    <form action="/hit_update" method="POST">
+        <h3>Update Incident</h3>
+        ID: <input type="number" name="id" required><br>
+        Title: <input type="text" name="title"><br>
+        Description: <input type="text" name="description"><br>
+        Severity: <input type="text" name="severity"><br>
+        <button type="submit">Update Incident</button>
+    </form>
+
+    <!-- Delete Incident Form -->
+    <form action="/delete" method="POST">
+        <h3>Delete Incident</h3>
+        ID: <input type="number" name="id" required><br>
+        <button type="submit">Delete Incident</button>
+    </form>
+
+</body>
+</html>
