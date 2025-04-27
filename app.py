@@ -49,7 +49,7 @@ def fetch_all():
 
 @app.route("/incidents/<int:id>",methods=["GET"])
 def incidentById(id):
-    incidents = Incident.query.get(id)  # Fetch the user by ID using the primary key
+    incidents = Incident.query.get(id) 
     if incidents:
         return jsonify({
             'title': incidents.title,
@@ -62,24 +62,21 @@ def incidentById(id):
 
 @app.route('/incidents', methods=["PUT"])
 def update_incident():
-    # Get the incident ID and new data from the request
+
     data = request.get_json() 
 
-    incident_id = data.get('id')  # Getting ID from form data (can be from JSON as well)
+    incident_id = data.get('id')  
     title = data.get('title')
     description = data.get('description')
     severity = data.get('severity')
 
-    print(incident_id)
 
-    # Find the incident in the database by ID
-    incident = Incident.query.get(incident_id)  # Use get() to find by primary key (id)
-
-    # If the incident is not found, return 'not found'
+   
+    incident = Incident.query.get(incident_id)  
     if not incident:
         return jsonify({'message': 'Incident not found'}), 404
 
-    # Update the incident details
+
     if title:
         incident.title = title
     if description:
@@ -87,7 +84,7 @@ def update_incident():
     if severity:
         incident.severity = severity
 
-    # Commit the changes to the database
+
     db.session.commit()
 
     return jsonify({
@@ -106,7 +103,7 @@ def hit_update():
     description = request.form.get('description')
     severity = request.form.get('severity')
 
-    # Create a dictionary with the form data
+
     data = {
         'id': incident_id,
         'title': title,
